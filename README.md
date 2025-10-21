@@ -12,7 +12,7 @@ El objetivo es terminar con una base funcional usando Docker Compose, donde cada
 
 ##  Arquitectura inicial
 
-```bash
+```
 microservices-lab/
 │
 ├── auth-service/       # Servicio de autenticación (JWT)
@@ -23,19 +23,20 @@ microservices-lab/
 ├── docker-compose.yml  # Orquestador de contenedores
 ├── .env.example        # Variables de entorno base
 └── README.md           # Documentación del proyecto
-
+```
 ---
-
+# Crear estructura base del proyecto
+```
 mkdir microservices-lab
 cd microservices-lab
 mkdir auth-service blog-service email-service frontend reverse-proxy
 
 # Crear README.md en cada carpeta de servicio
 touch auth-service/README.md blog-service/README.md email-service/README.md frontend/README.md reverse-proxy/README.md
-
+```
 ---
 Inicializar Git y subir al repositorio
-
+```
 git init
 git branch -M main  o  git checkout -b "tu rama"
 git add .  o   por archivo    git add "nombre"
@@ -44,10 +45,10 @@ git commit -m "Estructura inicial del laboratorio de microservicios"
 # Enlazar con el repositorio remoto
 git remote add origin https://github.com/camananick-a11y/Sala-24-BK-F-Docker-GIT.git
 git push -u origin main
-
+```
 ---
 Crear docker-compose.yml
-
+```
 version: "3.9"
 services:
   postgres:
@@ -72,20 +73,21 @@ services:
 
 volumes:
   pgdata:
-
+```
 ---
 Crear archivo .env.example
-
+```
 POSTGRES_USER=devuser
 POSTGRES_PASSWORD=devpass
 POSTGRES_DB=main_db
 REDIS_HOST=redis
 REDIS_PORT=6379
-
+```
 ---
-
+```
 Verificación del entorno
 Ejecutar los contenedores:
 
 docker compose up -d
 docker ps
+```
