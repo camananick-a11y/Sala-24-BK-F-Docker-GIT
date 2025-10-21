@@ -1,16 +1,16 @@
 # Sala-24-BK-F-Docker-GIT
 
-# 🧪 Laboratorio de Microservicios (Django + React)
+#  Laboratorio de Microservicios (Django + React)
 
-## 📌 Día 1 — Fundamentos + Entorno Docker / Git
+##  Día 1 — Fundamentos + Entorno Docker / Git
 
-### 🎯 Objetivo
+###  Objetivo
 Comprender qué es una arquitectura de microservicios y preparar el entorno de trabajo para los siguientes días.  
 El objetivo es terminar con una base funcional usando Docker Compose, donde cada servicio se pueda levantar de forma independiente.
 
 ---
 
-## 🧩 Arquitectura inicial
+##  Arquitectura inicial
 
 ```bash
 microservices-lab/
