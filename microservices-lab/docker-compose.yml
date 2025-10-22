@@ -1,0 +1,31 @@
+services:
+  db_postgres:
+    image: postgres:15
+    container_name: db_postgres
+    restart: always
+    env_file:
+      - .env                       # usa el archivo .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  cache_redis:
+    image: redis:7
+    container_name: cache_redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  auth-service:                    # para probar la conexión
+    build: ./auth-service          # dónde está el Dockerfile
+    container_name: auth_service
+    depends_on:                    # espera a que los otros estén listos
+      - db_postgres
+      - cache_redis
+    env_file:
+      - .env                       # toma las variables del mismo .env
+    command: ["python", "test_connection.py"]  # ejecuta tu script al arrancar
+
+volumes:
+  pgdata:
