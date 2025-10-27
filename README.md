@@ -92,7 +92,7 @@ Refrescar token	POST	/api/token/refresh/	Genera un nuevo access token usando el 
 ---
 ### Pruebas en Postman
 
-###1. Registro de usuario
+### 1. Registro de usuario
 ```
 POST /api/register/
 
@@ -182,12 +182,13 @@ Obtención del token JWT.
 Refresco del token.
 
 Log de migraciones exitosas en consola.
-```
+
 ### Resultado final del Día 2
 ```
 
 ---
 
+```
 ### Al finalizar este día:
 
 ✅ PostgreSQL y Redis están ejecutándose correctamente en contenedores Docker.
@@ -197,6 +198,4 @@ Log de migraciones exitosas en consola.
 ✅ Endpoints /api/register/, /api/token/ y /api/token/refresh/ funcionan correctamente en Postman.
 
 ✅ El microservicio Auth Service está completamente funcional y conectado a la base de datos Dockerizada.
-
-
- El microservicio Auth Service está completamente funcional y conectado a la base de datos Dockerizada.
+```
