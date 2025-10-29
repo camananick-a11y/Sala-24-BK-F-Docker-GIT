@@ -15,8 +15,9 @@ Este microservicio forma parte del laboratorio Sala 24 – Backend (Día 3), cuy
 - Healthcheck  
 
 ---
-```
+
 # 📦 Dependencias (requirements.txt)
+```
 asgiref==3.10.0
 blinker==1.9.0
 click==8.3.0
@@ -64,8 +65,8 @@ microservices-lab/
 ### 1️⃣ Clonar el repositorio
 
 ```
-git clone https://github.com/tu-usuario/microservices-lab.git
-cd microservices-lab
+git clone https://github.com/camananick-a11y/Sala-24-BK-F-Docker-GIT
+cd Sala-24-BK-F-Docker-GIT
 ```
 ---
 
@@ -98,9 +99,9 @@ Blog Service en localhost:8001
 
 🗃️ Migraciones y Datos Iniciales (Seed)
 
-```
-Dentro del contenedor del blog:
 
+Dentro del contenedor del blog:
+```
 docker exec -it blog_service bash
 python manage.py makemigrations
 python manage.py migrate
@@ -121,20 +122,19 @@ python manage.py shell
 
 Método	Endpoint	Descripción	Cache	Ejemplo de respuesta
 ```
-GET	/healthz	Verifica conexión a DB y Redis	                                        ❌	{ "db": true, "redis": true }
-GET	/api/categories/	Lista categorías activas	                                      ✅ (TTL: 60s)	[{"id":1,"name":"Tech","slug":"tech"}]
-GET	/api/posts?search=&page=	Lista posts publicados, filtrables por título o cuerpo	❌	{ "count":30,"results":[{"id":1,"title":"Sample Post 1",...}] }
-GET	/api/posts/{slug}/	Devuelve detalle del post (y aumenta vistas)	                ✅ (TTL: 60s)	{ "id":1,"title":"Sample Post 1","body":"Lorem ipsum...", ... }
+GET	/healthz	Verifica conexión a DB y Redis	                                         ❌	{ "db": true, "redis": true }
+GET	/api/categories/	Lista categorías activas	                                       ✅ (TTL: 60s)	[{"id":1,"name":"Tech","slug":"tech"}]
+GET	/api/posts?search=&page=	Lista posts publicados, filtrables por título o cuerpo	 ❌	{ "count":30,"results":[{"id":1,"title":"Sample Post 1",...}] }
+GET	/api/posts/{slug}/	Devuelve detalle del post (y aumenta vistas)	                 ✅ (TTL: 60s)	{ "id":1,"title":"Sample Post 1","body":"Lorem ipsum...", ... }
 ```
 ---
 
 ⚙️ Paginación y Búsqueda
 
-Paginación: automática con page_size=10
-
+-Paginación: automática con page_size=10
 Ejemplo: /api/posts?page=2
 
-Búsqueda: parámetro search en título o cuerpo
+-Búsqueda: parámetro search en título o cuerpo
 Ejemplo: /api/posts?search=django
 
 ---
@@ -147,7 +147,7 @@ Healthcheck
 GET http://localhost:8001/healthz
 Respuesta esperada:
 ```
-json
+
  ```
 {
   "db": true,
@@ -158,8 +158,6 @@ Cada request genera un log estructurado:
 ```
 ---
 ```
-json
-
 {
   "method": "GET",
   "path": "/api/posts/",
@@ -233,8 +231,8 @@ GET http://localhost:8001/api/posts/sample-post-1/ →      ✅ Detalle del post
 ```
 Componente	                                      Estado
 PostgreSQL + Redis funcionando	                  ✅
-Migraciones y datos semilla	                      ✅
-Endpoints /api/categories, /api/posts, /healthz	  ✅
+Migraciones y datos semilla	                     ✅
+Endpoints /api/categories, /api/posts, /healthz	 ✅
 Caché en categorías y detalle de posts	          ✅
 Logging JSON	                                    ✅
 Docker Compose operativo	                        ✅
