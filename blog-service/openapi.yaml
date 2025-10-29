@@ -1,0 +1,36 @@
+
+openapi: 3.0.0
+info:
+  title: Blog Service (Day 3)
+  version: "1.0.0"
+paths:
+  /api/categories:
+    get:
+      summary: List categories
+      responses:
+        "200":
+          description: OK
+  /api/posts:
+    get:
+      summary: List posts (search + pagination)
+      parameters:
+        - name: search
+          in: query
+          schema: { type: string }
+        - name: page
+          in: query
+          schema: { type: integer }
+      responses:
+        "200":
+          description: OK
+  /api/posts/{slug}:
+    get:
+      summary: Get post by slug or id
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: OK
