@@ -1,54 +1,141 @@
 # Sala-24-BK-F-Docker-GIT
 
-#  Laboratorio de Microservicios (Django + React)
+# 🧩 Día 3 — Blog Service (Microservicios con Django, DRF, PostgreSQL y Redis)
 
-##  Día 1 — Fundamentos + Entorno Docker / Git
+### 📚 Descripción general
+Este microservicio forma parte del laboratorio **Sala 24 – Backend (Día 3)**, cuyo objetivo fue construir un **servicio de Blog** independiente que maneje publicaciones y categorías, con **paginación, búsqueda, caché (Redis)** y **healthcheck**.
 
-###  Objetivo
-Comprender qué es una arquitectura de microservicios y preparar el entorno de trabajo para los siguientes días.  
-El objetivo es terminar con una base funcional usando Docker Compose, donde cada servicio se pueda levantar de forma independiente.
+Este servicio está listo para integrarse más adelante con el microservicio de **autenticación (Auth Service)** mediante JWT.
 
 ---
 
-##  Arquitectura inicial
+## ⚙️ Stack Tecnológico
+- **Django 5.0**
+- **Django REST Framework (DRF)**
+- **PostgreSQL 15**
+- **Redis 7**
+- **Docker & Docker Compose**
+- **django-redis**
+- **django-filter**
+- **python-slugify**
+- **gunicorn**
 
-```
+---
+
+## 🏗️ Estructura del Proyecto
+
 microservices-lab/
 │
-├── auth-service/       # Servicio de autenticación (JWT)
-├── blog-service/       # Gestión de publicaciones, autores y categorías
-├── email-service/      # Envío de correos y formularios
-├── frontend/           # Interfaz de usuario en React
-├── reverse-proxy/      # Proxy inverso y gateway local
-├── docker-compose.yml  # Orquestador de contenedores
-├── .env.example        # Variables de entorno base
-└── README.md           # Documentación del proyecto
-```
+├── docker-compose.yml
+├── .env
+│
+└── blog-service/
+├── Dockerfile
+├── manage.py
+├── requirements.txt
+├── openapi.yaml
+│
+├── blog_service/ # Configuración principal (settings, urls, wsgi)
+├── core/ # Middleware y utilidades (logging, paginación, cache)
+├── authors/ # App de autores (seed local)
+├── categories/ # App de categorías
+└── posts/ # App de publicaciones
+
+yaml
+Copiar código
+
 ---
-# Crear estructura base del proyecto
-```
-mkdir microservices-lab
+
+## 🔧 Instalación y Ejecución
+
+### 1️⃣ Clonar el repositorio
+```bash
+git clone https://github.com/tu-usuario/microservices-lab.git
 cd microservices-lab
-mkdir auth-service blog-service email-service frontend reverse-proxy
+2️⃣ Verificar el archivo .env
+Crea o verifica que exista un archivo .env con el siguiente contenido:
 
-# Crear README.md en cada carpeta de servicio
-touch auth-service/README.md blog-service/README.md email-service/README.md frontend/README.md reverse-proxy/README.md
-```
----
-Inicializar Git y subir al repositorio
-```
-git init
-git branch -M main  o  git checkout -b "tu rama"
-git add .  o   por archivo    git add "nombre"
-git commit -m "Estructura inicial del laboratorio de microservicios"
+env
+Copiar código
+POSTGRES_USER=devuser
+POSTGRES_PASSWORD=devpass
+POSTGRES_DB=main_db
+REDIS_HOST=redis
+REDIS_PORT=6379
+3️⃣ Levantar los servicios
+Ejecuta en la raíz del proyecto:
 
-# Enlazar con el repositorio remoto
-git remote add origin https://github.com/camananick-a11y/Sala-24-BK-F-Docker-GIT.git
-git push -u origin main
-```
----
-Crear docker-compose.yml
-```
+bash
+Copiar código
+docker-compose up --build
+Esto levantará los servicios:
+
+PostgreSQL en localhost:5432
+
+Redis en localhost:6379
+
+Blog Service en localhost:8001
+
+🗃️ Migraciones y Datos Iniciales (Seed)
+Una vez dentro del contenedor del blog:
+
+bash
+Copiar código
+docker exec -it blog_service bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py seed_blog
+Verifica los datos cargados:
+
+bash
+Copiar código
+python manage.py shell
+>>> from posts.models import Post
+>>> Post.objects.count()
+30
+🌐 Endpoints Principales
+Método	Endpoint	Descripción	Cache	Ejemplo de respuesta
+GET	/healthz	Verifica conexión a DB y Redis	❌	{ "db": true, "redis": true }
+GET	/api/categories/	Lista categorías activas	✅ (TTL: 60s)	[{"id":1,"name":"Tech","slug":"tech"}]
+GET	/api/posts?search=&page=	Lista posts publicados, filtrables por título o cuerpo	❌	{ "count":30,"results":[{"id":1,"title":"Sample Post 1",...}]}
+GET	/api/posts/{slug}/	Devuelve detalle del post (y aumenta vistas)	✅ (TTL: 60s)	{ "id":1,"title":"Sample Post 1","body":"Lorem ipsum...", ... }
+
+⚙️ Paginación y Búsqueda
+Paginación: automática con page_size=10
+
+Ejemplo: /api/posts?page=2
+
+Búsqueda: parámetro search en título o cuerpo
+
+Ejemplo: /api/posts?search=django
+
+🧠 Observabilidad
+Healthcheck
+bash
+Copiar código
+GET http://localhost:8001/healthz
+Respuesta esperada:
+
+json
+Copiar código
+{
+  "db": true,
+  "redis": true
+}
+Logging JSON
+Cada request genera un log estructurado con:
+
+json
+Copiar código
+{
+  "method": "GET",
+  "path": "/api/posts/",
+  "status": 200,
+  "duration_ms": 12
+}
+🗄️ Docker Compose
+yaml
+Copiar código
 version: "3.9"
 services:
   postgres:
@@ -71,23 +158,41 @@ services:
     ports:
       - "6379:6379"
 
+  blog:
+    build: ./blog-service
+    container_name: blog_service
+    environment:
+      - DB_HOST=postgres
+      - DB_NAME=main_db
+      - DB_USER=devuser
+      - DB_PASS=devpass
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DEBUG=1
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8001:8001"
+
 volumes:
   pgdata:
-```
----
-Crear archivo .env.example
-```
-POSTGRES_USER=devuser
-POSTGRES_PASSWORD=devpass
-POSTGRES_DB=main_db
-REDIS_HOST=redis
-REDIS_PORT=6379
-```
----
-```
-Verificación del entorno
-Ejecutar los contenedores:
+🧾 Ejemplo de flujo con Postman
+GET http://localhost:8001/healthz → ✅ 200 OK
 
-docker compose up -d
-docker ps
-```
+GET http://localhost:8001/api/categories/ → ✅ lista de categorías activas
+
+GET http://localhost:8001/api/posts/ → ✅ lista paginada de posts
+
+GET http://localhost:8001/api/posts/sample-post-1/ → ✅ detalle del post
+
+(Opcional) Repetir #4 → valor views incrementa
+
+✅ Estado final — Día 3 completado
+Componente	Estado
+PostgreSQL + Redis funcionando	✅
+Migraciones y datos semilla	✅
+Endpoints /api/categories, /api/posts, /healthz	✅
+Caché en categorías y detalle de posts	✅
+Logging JSON	✅
+Docker Compose operativo	✅
