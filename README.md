@@ -1,4 +1,4 @@
-# Sala-24-BK-F-Docker-GIT
+<img width="1280" height="960" alt="image" src="https://github.com/user-attachments/assets/7b7a5e75-4add-43ea-b88b-20ca369baa43" /># Sala-24-BK-F-Docker-GIT
 
 🧩 **Día 3 — Blog Service**  
 Microservicios con Django, DRF, PostgreSQL y Redis
@@ -237,3 +237,35 @@ Caché en categorías y detalle de posts	          ✅
 Logging JSON	                                    ✅
 Docker Compose operativo	                        ✅
 ```
+## RESPUESTA EN LA TERMINAL
+
+# correr contenedores
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/ebffa716-6ea7-4408-b59e-5be678cf0b68" />
+
+# ver contenedores
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/d9e65640-6503-478c-8d55-0d0db354f7c3" />
+
+# ver bd y redis
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/91e2fc2e-473c-43e1-886a-2046bcaab072" />
+
+# endpoitn para listar categoiras
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/2a58587d-571b-4173-8e90-d288ca7d91fa" />
+
+# endpoint para lista paginada de posts
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/897a191e-b525-415e-88ab-436eeea39bae" />
+
+# endpoint para detalle de post
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/b5f476e3-c3b4-4bdb-a0b7-da67d0b99643" />
+
+# shell - cantidad de registros
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/68b8cbaa-c8f4-402c-a66f-306a0f81241c" />
+
+# vista - docker
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/cad036b9-1889-4c7e-8859-23a29904505a" />
+
+
+
+
+
+
+
