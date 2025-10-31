@@ -91,3 +91,10 @@ Ejecutar los contenedores:
 docker compose up -d
 docker ps
 ```
+
+## RESPUESTA EN LA TERMINAL - Dia 1
+<img width="1600" height="849" alt="image" src="https://github.com/user-attachments/assets/8788cc92-6157-48be-b72c-d6e519469257" />
+
+<img width="1600" height="847" alt="image" src="https://github.com/user-attachments/assets/1d2479fc-46f6-46e8-94c3-bfd3b3210655" />
+
+
