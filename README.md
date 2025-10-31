@@ -199,3 +199,21 @@ Log de migraciones exitosas en consola.
 
 ✅ El microservicio Auth Service está completamente funcional y conectado a la base de datos Dockerizada.
 ```
+```
+##  RESPUESTA EN LA TERMINAL
+# correr contenedores
+<img width="1280" height="960" alt="image" src="https://github.com/user-attachments/assets/bee2a7ff-00fb-415e-9a9a-971c681748d8" />
+
+# endpoint de registro
+<img width="1280" height="960" alt="image" src="https://github.com/user-attachments/assets/75239dd9-45a8-45cd-8430-9c2541ad0486" />
+
+# endpoint de token
+<img width="1280" height="960" alt="image" src="https://github.com/user-attachments/assets/60a6a4bb-6b5e-49cf-820f-a1094028c2f5" />
+
+# endpoint para refrescar token
+<img width="1280" height="960" alt="image" src="https://github.com/user-attachments/assets/1f170160-6e45-4d02-92f2-4ba518605988" />
+
+# vista - docker
+<img width="1280" height="960" alt="image" src="https://github.com/user-attachments/assets/4bf03630-229a-4ba0-95b6-c31b2a54ec44" />
+
+
